@@ -1,0 +1,15 @@
+{% extends 'loggedin.html' %}
+
+{% block content %}
+<br><br><br>
+<div class="is-flex is-align-items-center is-justify-content-center">
+    <div class="box">
+        <article class="content">
+            <p>
+                Hello there {{user.username}} <br>
+                <a href="{% url 'logout' %}">Log out</a>
+            </p>
+        </article>
+    </div>
+</div>
+{% endblock %}
