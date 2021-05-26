@@ -1,0 +1,18 @@
+{% extends 'loggedin.html' %} 
+
+{% block content %} 
+<br><br>
+<div class="container">
+    <h1 class="title">New post</h1>
+    <form action="/newpost" method="post">
+            <div class="control">
+                {% csrf_token %} 
+                {{form.as_p}}
+            </div>
+            <div class="control">
+                <br><br>
+                <button type="submit" class="button is-success">Post it</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
