@@ -1,10 +1,14 @@
 from django.shortcuts import render
 from .forms import PostModelForm
 from time import asctime
-# Create your views here.
-def index(req):
-    return render(req, 'index.html')
+from .models import Post
+from django.views.generic import ListView, DetailView
 
+# Create your views here.
+class ListPostView(ListView):
+    model = Post
+    template_name = 'index.html'
+    
 def new_post(req):
     if req.method == 'POST':
         form = PostModelForm(req.POST or None)
@@ -15,3 +19,7 @@ def new_post(req):
     else:
         form = PostModelForm(instance=req.user)
         return render(req, 'newpost.html', {'form': form})
+    
+class view_post(DetailView):
+    model = Post
+    template_name = 'post.html'
