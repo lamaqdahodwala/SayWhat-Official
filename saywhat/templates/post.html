@@ -2,14 +2,15 @@
 
 {% block content %} 
 <div class="container">
-    <div class="is-flex is-align-items-center is-justify-content-center">
-        <h1 class="title">{{post.title}}</h1>
-        <hr>
-        <div class="content">
-            <p class="content">
-                {{post.body}}
-            </p>
-        </div>
+    <div class="has-text-centered">
+        <h1 class="title is-1">{{post.title}}</h1> <br>
+        <h1 class="subtitle is-5">written by {{post.op.username}}</h1>
+    </div>
+    <hr>
+    <div class="content">
+        <p class="is-family-sans-serif">
+            {{post.body}}
+        </p>
     </div>
 </div>
 {% endblock %}

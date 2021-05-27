@@ -20,6 +20,6 @@ def new_post(req):
         form = PostModelForm(instance=req.user)
         return render(req, 'newpost.html', {'form': form})
     
-class view_post(DetailView):
-    model = Post
-    template_name = 'post.html'
+def view_post(req, key):
+    post = Post.objects.get(pk=key)
+    return render(req,'post.html', {'post': post})
