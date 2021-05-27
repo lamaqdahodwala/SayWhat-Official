@@ -2,16 +2,20 @@
 
 {% block content %}
 <br><br><br>
-<h1 class="title">Posts</h1>
-<div class="is-flex is-align-items-center is-justify-content-center">
+<div class="container">
+    <h1 class="title is-1">Posts</h1>
     {% for i in object_list %} 
         <div class="card">
             <div class="card-header">
-                <a href='{% url "detail" i.pk %}' class="card-header-title">{{i.title}}</a>
+                <h1 class="card-header-title title is-4">{{i.title}}</h1>
+            </div>
+            <div class="card-content">
+                <p>Written by {{i.op.username}}</p>
             </div>
         </div>
+        <br> <br>
     {% empty %} 
-        <p class="help">No posts  yet.</p>
+        <p class="help">No posts yet</p>
     {% endfor %}
 </div>
 {% endblock %}

@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .forms import PostModelForm
 from time import asctime
+from django.http import HttpResponseRedirect
 from .models import Post
 from django.views.generic import ListView, DetailView
 
@@ -15,7 +16,7 @@ def new_post(req):
         instance = form.save(commit=False)
         instance.op = req.user
         instance.save()
-        return render(req, 'index.html')
+        return HttpResponseRedirect('/')
     else:
         form = PostModelForm(instance=req.user)
         return render(req, 'newpost.html', {'form': form})
