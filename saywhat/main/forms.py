@@ -10,6 +10,6 @@ class PostModelForm(forms.ModelForm):
             'title': forms.TextInput(attrs={'class': 'input'}),
             'body': forms.Textarea(attrs={'class': 'textarea', 'rows': 10, 'cols': 10})
         }
-    
+
         
     

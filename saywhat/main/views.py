@@ -24,3 +24,7 @@ def new_post(req):
 def view_post(req, key):
     post = Post.objects.get(pk=key)
     return render(req,'post.html', {'post': post})
+
+def upvote_post(req, post_id):
+    if req.method == 'POST':
+        ...
