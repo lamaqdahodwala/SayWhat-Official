@@ -7,6 +7,8 @@ class Post(models.Model):
     op = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     title = models.CharField(max_length=100)
     body = models.TextField()
+    upvotes = models.IntegerField()
+    upvotes.default = 0
     
     def __str__(self):
         return self.title
