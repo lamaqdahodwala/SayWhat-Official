@@ -1,4 +1,5 @@
 import django.forms as forms
+from django.contrib.auth.models import User
 from . import models
 
 class PostModelForm(forms.ModelForm):
@@ -9,3 +10,6 @@ class PostModelForm(forms.ModelForm):
             'title': forms.TextInput(attrs={'class': 'input'}),
             'body': forms.Textarea(attrs={'class': 'textarea', 'rows': 10, 'cols': 10})
         }
+    
+        
+    

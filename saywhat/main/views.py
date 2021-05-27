@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .forms import PostModelForm
+from time import asctime
 # Create your views here.
 def index(req):
     return render(req, 'index.html')
@@ -7,9 +8,9 @@ def index(req):
 def new_post(req):
     if req.method == 'POST':
         form = PostModelForm(req.POST or None)
-        form.op = req.user
-        print(form.errors)
-        form.save()
+        instance = form.save(commit=False)
+        instance.op = req.user
+        instance.save()
         return render(req, 'index.html')
     else:
         form = PostModelForm(instance=req.user)
