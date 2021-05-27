@@ -4,7 +4,7 @@ from time import asctime
 from .models import Post
 from django.views.generic import ListView, DetailView
 
-# Create your views here.
+
 class ListPostView(ListView):
     model = Post
     template_name = 'index.html'
