@@ -14,6 +14,10 @@
         <hr>
         <div class="is-flex is-align-items-center is-justify-content-center">
             <a href="/" class="button is-primary">Go back</a>
+            <form action="{% url 'upvote' post.pk %}" method="post">
+                {% csrf_token %} 
+                <button type="submit" class="button is-primary">Upvote</button>
+            </form>
         </div>
     </div>
 </div>

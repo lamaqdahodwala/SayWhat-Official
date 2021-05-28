@@ -1,9 +1,9 @@
 from django.shortcuts import render
-from .forms import PostModelForm, UpvoteModelForm
+from .forms import PostModelForm
 from time import asctime
 from django.http import HttpResponseRedirect
 from .models import Post
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, UpdateView
 
 
 class ListPostView(ListView):
@@ -25,10 +25,3 @@ def view_post(req, key):
     post = Post.objects.get(pk=key)
     return render(req,'post.html', {'post': post})
 
-def upvote_post(req, post_id):
-    if req.method == 'POST':
-        form = UpvoteModelForm(req.POST or None)
-        instance = form.save(commit=False)
-        instance.post = Post.objects.get(pk=post_id)
-        instance.save()
-        return HttpResponseRedirect('post/{}'.format(post_id))

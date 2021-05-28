@@ -7,7 +7,7 @@
     {% for i in object_list %} 
         <div class="card">
             <div class="card-header">
-                <h1 class="card-header-title title is-4">{{i.title}}</h1>
+                <a href='{% url "detail" i.pk %}' class="card-header-title title is-link is-4">{{i.title}}</a>
             </div>
             <div class="card-content">
                 <p>Written by {{i.op.username}}</p>
