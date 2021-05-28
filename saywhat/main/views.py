@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .forms import PostModelForm
+from .forms import PostModelForm, UpvoteModelForm
 from time import asctime
 from django.http import HttpResponseRedirect
 from .models import Post
@@ -27,4 +27,8 @@ def view_post(req, key):
 
 def upvote_post(req, post_id):
     if req.method == 'POST':
-        ...
+        form = UpvoteModelForm(req.POST or None)
+        instance = form.save(commit=False)
+        instance.post = Post.objects.get(pk=post_id)
+        instance.save()
+        return HttpResponseRedirect('post/{}'.format(post_id))

@@ -12,4 +12,7 @@ class PostModelForm(forms.ModelForm):
         }
 
         
-    
+class UpvoteModelForm(forms.ModelForm):
+    class Meta:
+        model = models.Upvote
+        fields = []
