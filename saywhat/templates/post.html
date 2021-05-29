@@ -5,6 +5,7 @@
     <div class="has-text-centered">
         <h1 class="title is-1">{{post.title}}</h1> <br>
         <h1 class="subtitle is-5">written by {{post.op.username}}</h1>
+        <h1 class="subtitle is-5">Upvotes: {{total_likes}}</h1>
     </div>
     <hr>
     <div class="content">
@@ -12,12 +13,19 @@
             {{post.body}}
         </p>
         <hr>
-        <div class="is-flex is-align-items-center is-justify-content-center">
-            <a href="/" class="button is-primary">Go back</a>
-            <form action="{% url 'like_post' post.pk %}" method="post">
-                {% csrf_token %} 
-                <button type="submit" class="button is-primary" name="post_id" value="{{post.id}}">Upvote</button>
-            </form>
+        <br><br>
+        <!--
+
+            <div class="is-flex is-align-items-center is-justify-content-center">
+                <a href="/" class="button is-primary">Go back</a>
+                <form action="{% url 'like_post' post.pk %}" method="post">
+                    {% csrf_token %} 
+                    <button type="submit" class="button is-primary" name="post_id" value="{{post.id}}">Upvote</button>
+                </form>
+            </div>
+        -->
+        <div class="columns">
+            
         </div>
     </div>
 </div>

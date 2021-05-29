@@ -23,7 +23,8 @@ def new_post(req):
     
 def view_post(req, key):
     post = Post.objects.get(pk=key)
-    return render(req,'post.html', {'post': post})
+    total_likes = post.get_total_likes()
+    return render(req,'post.html', {'post': post, 'total_likes': total_likes})
 
 def like_post(req, pk):
     post = get_object_or_404(Post, id=req.POST.get('post_id'))
