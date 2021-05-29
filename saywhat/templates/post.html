@@ -14,9 +14,9 @@
         <hr>
         <div class="is-flex is-align-items-center is-justify-content-center">
             <a href="/" class="button is-primary">Go back</a>
-            <form action="{% url 'upvote' post.pk %}" method="post">
+            <form action="{% url 'like_post' post.pk %}" method="post">
                 {% csrf_token %} 
-                <button type="submit" class="button is-primary">Upvote</button>
+                <button type="submit" class="button is-primary" name="post_id" value="{{post.id}}">Upvote</button>
             </form>
         </div>
     </div>

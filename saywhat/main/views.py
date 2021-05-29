@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .forms import PostModelForm
 from time import asctime
 from django.http import HttpResponseRedirect
@@ -25,3 +25,8 @@ def view_post(req, key):
     post = Post.objects.get(pk=key)
     return render(req,'post.html', {'post': post})
 
+def like_post(req, pk):
+    post = get_object_or_404(Post, id=req.POST.get('post_id'))
+    post.upvotes.add(req.user)
+    post.save()
+    return HttpResponseRedirect(f'/post/{pk}')
