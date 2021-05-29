@@ -11,4 +11,7 @@ class PostModelForm(forms.ModelForm):
             'body': forms.Textarea(attrs={'class': 'textarea', 'rows': 10, 'cols': 10})
         }
 
-        
+class CommentModelForm(forms.ModelForm):
+    class Meta:
+        model = models.Comment
+        fields = ['body']

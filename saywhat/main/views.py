@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from .forms import PostModelForm
+from .forms import PostModelForm, CommentModelForm
 from time import asctime
 from django.http import HttpResponseRedirect
 from .models import Post
@@ -30,4 +30,13 @@ def like_post(req, pk):
     post = get_object_or_404(Post, id=req.POST.get('post_id'))
     post.upvotes.add(req.user)
     post.save()
+    return HttpResponseRedirect(f'/post/{pk}')
+
+def new_comment(req, pk):
+    post = get_object_or_404(Post, id=req.POST.get('post_id'))
+    form = CommentModelForm(req.POST or None)
+    instance = form.save(commit=False)
+    instance.name = req.user.username
+    instance.post = post
+    instance.save()
     return HttpResponseRedirect(f'/post/{pk}')

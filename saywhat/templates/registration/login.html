@@ -5,9 +5,7 @@
     <h1 class="title">Log in</h1>
     <form method="post">
         {% csrf_token %}
-        <div class="control">
-            {{form.as_p}}
-        </div>
+        {{form.as_p}}
         <button type="submit" class="button is-success">Log in</button>
     </form>
 </div>
