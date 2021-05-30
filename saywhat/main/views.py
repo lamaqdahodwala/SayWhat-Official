@@ -3,7 +3,7 @@ from .forms import PostModelForm, CommentModelForm
 from time import asctime
 from django.http import HttpResponseRedirect
 from .models import Post
-from django.views.generic import ListView, UpdateView
+from django.views.generic import ListView, DeleteView
 
 
 class ListPostView(ListView):
@@ -25,9 +25,11 @@ def view_post(req, key):
     post = Post.objects.get(pk=key)
     total_likes = post.get_total_likes()
     liked = False
+    canEdit = True if req.user == post.op else False
+    canDelete = canEdit
     if post.upvotes.filter(id=req.user.id).exists():
         liked =True
-    return render(req,'post.html', {'post': post, 'total_likes': total_likes, 'liked': liked})
+    return render(req,'post.html', {'post': post, 'total_likes': total_likes, 'liked': liked, 'canDelete': canDelete, 'canEdit': canEdit})
 
 def like_post(req, pk):
     post = get_object_or_404(Post, id=req.POST.get('post_id'))
@@ -42,10 +44,18 @@ def like_post(req, pk):
     return HttpResponseRedirect(f'/post/{pk}')
 
 def new_comment(req, pk):
-    post = get_object_or_404(Post, id=req.POST.get('post_id'))
-    form = CommentModelForm(req.POST or None)
-    instance = form.save(commit=False)
-    instance.name = req.user.username
-    instance.post = post
-    instance.save()
-    return HttpResponseRedirect(f'/post/{pk}')
+    try:
+        post = get_object_or_404(Post, id=req.POST.get('post_id'))
+        form = CommentModelForm(req.POST or None)
+        instance = form.save(commit=False)
+        instance.name = req.user.username
+        instance.post = post
+        instance.save()
+        return HttpResponseRedirect(f'/post/{pk}')
+    except Exception:
+        return HttpResponseRedirect(f'/post/{pk}')
+    
+class DeletePost(DeleteView):
+    model = Post
+    success_url = '/'
+    template_name = 'delete.html'

@@ -16,25 +16,37 @@
         <br><br>
         <div class="is-flex is-align-items-center is-justify-content-center">
             <a href="/" class="button is-primary">Go back</a>
-            {% if liked %} 
-                <form action="{% url 'like_post' post.pk %}" method="post">
-                    {% csrf_token %} 
-                    <button type="submit" class="button is-danger" name="post_id" value="{{post.id}}">Remove upvote</button>
-                </form>
-            {% else %} 
-                <form action="{% url 'like_post' post.pk %}" method="post">
-                    {% csrf_token %} 
-                    <button type="submit" class="button is-primary" name="post_id" value="{{post.id}}">Upvote</button>
-                </form>
-            {% endif %}
+            <hr>
+            {% if user.is_authenticated %} 
+                {% if liked %} 
+                    <form action="{% url 'like_post' post.pk %}" method="post">
+                        {% csrf_token %} 
+                        <button type="submit" class="button is-danger" name="post_id" value="{{post.id}}">Remove upvote</button>
+                    </form>
+                {% else %} 
+                    <form action="{% url 'like_post' post.pk %}" method="post">
+                        {% csrf_token %} 
+                        <button type="submit" class="button is-primary" name="post_id" value="{{post.id}}">Upvote</button>
+                    </form>
+                {% endif %}
+            {% else %}
+            <button class="button is-disabled" disabled>Upvote</button>
+            <p>Sign up, or log in to upvote</p>
+            {% endif %} 
         </div>
         <h1 class="subtitle">Comments:</h1>
         <hr>
-        <h1 class="subtitle is-6">Add comment</h1>
+        <h1 class="subtitle is-6">Add comment ({{post.comments.all.count}} so far)</h1>
         <form action="{% url 'comment' post.pk %}" method="post">
             {% csrf_token %} 
             <textarea name="body" id="body" cols="30" rows="5" class="textarea"></textarea>
-            <button type="submit" name='post_id' value='{{post.id}}' class='button is-success'>Add comment</button>
+            <br>
+            {% if user.is_authenticated %} 
+                <button type="submit" name='post_id' value='{{post.id}}' class='button is-success'>Add comment</button>
+            {% else %} 
+                <p>Sign up or log in to comment</p>
+                <button type="submit" name='post_id' value='{{post.id}}' class='button is-success is-disabled' disabled>Add comment</button>
+            {% endif %} 
         </form>
         <hr>
         {% if post.comments.all %} 
@@ -51,7 +63,7 @@
                 <br><br>
             {% endfor %}
         {% else %} 
-            <p class="help">No comments yet.</p>
+            <p>No comments yet.</p>
         {% endif %}
     </div>
 </div>

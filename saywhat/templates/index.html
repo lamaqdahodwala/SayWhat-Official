@@ -10,7 +10,11 @@
                 <a href='{% url "detail" i.pk %}' class="card-header-title title is-link is-4">{{i.title}}</a>
             </div>
             <div class="card-content">
-                <p>Written by {{i.op.username}}</p>
+                <p>
+                    Written by {{i.op.username}} <br>
+                    {{i.get_total_likes}} upvotes <br>
+                    {{i.comments.all.count}} comments
+                </p>
             </div>
         </div>
         <br> <br>
