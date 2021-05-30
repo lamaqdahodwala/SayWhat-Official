@@ -24,11 +24,20 @@ def new_post(req):
 def view_post(req, key):
     post = Post.objects.get(pk=key)
     total_likes = post.get_total_likes()
-    return render(req,'post.html', {'post': post, 'total_likes': total_likes})
+    liked = False
+    if post.upvotes.filter(id=req.user.id).exists():
+        liked =True
+    return render(req,'post.html', {'post': post, 'total_likes': total_likes, 'liked': liked})
 
 def like_post(req, pk):
     post = get_object_or_404(Post, id=req.POST.get('post_id'))
-    post.upvotes.add(req.user)
+    liked = False
+    if post.upvotes.filter(id=req.user.id).exists():
+        post.upvotes.remove(req.user)
+        liked = False
+    else:
+        liked = True
+        post.upvotes.add(req.user)
     post.save()
     return HttpResponseRedirect(f'/post/{pk}')
 

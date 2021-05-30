@@ -1,4 +1,4 @@
-{% extends 'loggedin.html' %}
+{% extends 'base.html' %}
 
 {% block content %} 
 <div class="container">
@@ -16,10 +16,17 @@
         <br><br>
         <div class="is-flex is-align-items-center is-justify-content-center">
             <a href="/" class="button is-primary">Go back</a>
-            <form action="{% url 'like_post' post.pk %}" method="post">
-                {% csrf_token %} 
-                <button type="submit" class="button is-primary" name="post_id" value="{{post.id}}">Upvote</button>
-            </form>
+            {% if liked %} 
+                <form action="{% url 'like_post' post.pk %}" method="post">
+                    {% csrf_token %} 
+                    <button type="submit" class="button is-danger" name="post_id" value="{{post.id}}">Remove upvote</button>
+                </form>
+            {% else %} 
+                <form action="{% url 'like_post' post.pk %}" method="post">
+                    {% csrf_token %} 
+                    <button type="submit" class="button is-primary" name="post_id" value="{{post.id}}">Upvote</button>
+                </form>
+            {% endif %}
         </div>
         <h1 class="subtitle">Comments:</h1>
         <hr>
