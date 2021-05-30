@@ -33,6 +33,12 @@
             <button class="button is-disabled" disabled>Upvote</button>
             <p>Sign up, or log in to upvote</p>
             {% endif %} 
+
+            {% if user == post.op %} 
+                <br>
+                <a href="{% url 'edit' post.pk %}" class='button is-warning'>Edit post</a>
+                <a href="{% url 'delete' post.pk %}" class='button is-danger'>Delete post</a>
+            {% endif %}
         </div>
         <h1 class="subtitle">Comments:</h1>
         <hr>

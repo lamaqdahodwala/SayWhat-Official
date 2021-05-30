@@ -3,7 +3,7 @@ from .forms import PostModelForm, CommentModelForm
 from time import asctime
 from django.http import HttpResponseRedirect
 from .models import Post
-from django.views.generic import ListView, DeleteView
+from django.views.generic import ListView, DeleteView, UpdateView
 
 
 class ListPostView(ListView):
@@ -59,3 +59,8 @@ class DeletePost(DeleteView):
     model = Post
     success_url = '/'
     template_name = 'delete.html'
+    
+class EditPost(UpdateView):
+    model = Post
+    fields = ['title', 'body']
+    template_name = 'update.html'

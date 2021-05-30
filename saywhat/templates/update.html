@@ -1,0 +1,18 @@
+{% extends 'loggedin.html' %} 
+
+{% block content %} 
+
+{% if user == post.op %} 
+    <form method="post">
+        {% csrf_token %} 
+        <div class="control">
+            {{form.as_p}}
+        </div>
+        <button class="button is-primary">Update</button>
+    </form>
+{% else %} 
+    <h1 class="title">Hang on, how did you get here?!</h1>
+    <h3 class="subtitle">You are not authorized to access this page, only the owner of the post can do that.</h3>
+{% endif %}
+
+{% endblock %}
