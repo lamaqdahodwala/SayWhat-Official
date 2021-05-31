@@ -1,0 +1,30 @@
+{% extends 'loggedin.html' %} 
+
+{% block content %} 
+<br><br>
+<div class="container">
+    <h1 class="title">About <a>{{user.username}}</a> (You!)</h1>
+    <hr>
+    <h1 class="subtitle is-size-4">Quick stats</h1>
+    <ul>
+        <p>Total posts: {{user.post_set.count}}</p>
+        <p>Total comments: {{user.comment_set.count}}</p>
+    </ul>
+    <hr>
+    <div class="columns">
+        <div class="column">
+            <div class="tile is-parent">
+                <div class="tile is-child box">
+                    <h1 class="title">Posts (Top 10)</h1>
+                    {% for i in user.post_set.all|slice:":10" %} 
+                        <a href="{% url 'detail' i.pk %}">{{i.title}},</a> {{i.upvotes.count}} upvotes
+                        <br>
+                    {% empty %} 
+                        <small class="is-small">{{user.username}} has no posts yet :(</small>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

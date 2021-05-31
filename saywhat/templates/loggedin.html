@@ -18,12 +18,15 @@
 			<a href='/' class="navbar-item">
 				Home
 			</a>
+			<a href="/newpost" class="navbar-item">
+				New Post
+			</a>
 		</div>
 		<div class="navbar-end">
 			<div class="navbar-item">
 				{% if user.is_authenticated %} 
 					<div class="buttons">
-						<a href="/account" class='button is-dark'>Account</a>
+						<a href="{% url 'view_account' user.id %}" class='button is-dark'>Account</a>
 					</div>
 				{% else %}
 					<div class="buttons">
