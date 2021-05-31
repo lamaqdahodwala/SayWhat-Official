@@ -48,11 +48,12 @@ def new_comment(req, pk):
         post = get_object_or_404(Post, id=req.POST.get('post_id'))
         form = CommentModelForm(req.POST or None)
         instance = form.save(commit=False)
-        instance.name = req.user.username
+        instance.user = req.user
         instance.post = post
         instance.save()
         return HttpResponseRedirect(f'/post/{pk}')
-    except Exception:
+    except Exception as e:
+        print(e)
         return HttpResponseRedirect(f'/post/{pk}')
     
 class DeletePost(DeleteView):

@@ -20,7 +20,7 @@ class Post(models.Model):
     
 class Comment(models.Model):
     post = models.ForeignKey(Post, related_name='comments', on_delete=models.CASCADE)
-    name= models.CharField(max_length=300)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     body = models.CharField(max_length=1000)
     
     def __str__(self):
