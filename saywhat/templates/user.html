@@ -3,7 +3,7 @@
 {% block content %} 
 <br><br>
 <div class="container">
-    <h1 class="title">About <a>{{user.username}}</a> (You!)</h1>
+    <h1 class="title">About <a>{{user.username}}</a></h1>
     <hr>
     <h1 class="subtitle is-size-4">Quick stats</h1>
     <ul>
@@ -15,13 +15,29 @@
         <div class="column">
             <div class="tile is-parent">
                 <div class="tile is-child box">
-                    <h1 class="title">Posts (Top 10)</h1>
+                    <h1 class="title">Posts (Last 10)</h1>
                     {% for i in user.post_set.all|slice:":10" %} 
-                        <a href="{% url 'detail' i.pk %}">{{i.title}},</a> {{i.upvotes.count}} upvotes
+                        <a href="{% url 'detail' i.pk %}">{{i.title}}</a> | {{i.upvotes.count}} upvotes
                         <br>
                     {% empty %} 
                         <small class="is-small">{{user.username}} has no posts yet :(</small>
                     {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="tile is-parent">
+                <div class="tile is-child box">
+                    <h1 class="title">Comments (Last 10)</h1>
+                    {% for i in user.comment_set.all|slice:":10" %} 
+                        <p>
+                            "{{i.body}}" | on <a href="{% url 'detail' i.post.pk %}">{{i.post.title}}</a>
+                        </p>
+                    {% empty %} 
+                        <p>
+                            {{user.username}} has no posts yet :(
+                        </p>
+                    {% endfor %} 
                 </div>
             </div>
         </div>
