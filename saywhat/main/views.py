@@ -7,10 +7,9 @@ from .models import Post, Comment
 from django.views.generic import ListView, DeleteView, UpdateView
 
 
-class ListPostView(ListView):
-    model = Post
-    template_name = 'index.html'
-    
+def ListPostView(req):
+    posts = Post.objects.order_by('-id')
+    return render(req, 'index.html', {'object_list': posts})
 def new_post(req):
     if req.method == 'POST':
         form = PostModelForm(req.POST or None)
