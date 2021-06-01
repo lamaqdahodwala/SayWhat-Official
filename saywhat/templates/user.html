@@ -34,8 +34,8 @@
                             "{{i.body}}" | on <a href="{% url 'detail' i.post.pk %}">{{i.post.title}}</a>
                         </p>
                     {% empty %} 
-                        <p>
-                            {{user.username}} has no posts yet :(
+                        <p class="is-small">
+                            {{user.username}} has no comments yet :(
                         </p>
                     {% endfor %} 
                 </div>

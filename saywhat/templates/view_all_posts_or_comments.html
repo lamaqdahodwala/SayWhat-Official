@@ -1,0 +1,26 @@
+{% extends 'base.html' %} 
+
+{% block content %} 
+<div class="container">
+    <br>
+    <h1 class="title">All {{user.username}}'s {{item}}</h1>
+    <div class="columns">
+        <div class="column">
+            <div class="box">
+                {% for i in posts %}
+                    {% if item == 'posts' %}
+                        <a href="{% url 'detail' i.pk %}">{{i.title}}</a>
+                    {% else %}
+                        <p>
+                            {{i.body}} | <a href="{% url 'detail' i.post.pk %}">{{i.post.title}}</a>
+                        </p>
+                    {% endif %}
+                {% empty %} 
+                    <p>{{user.username}} has no {{item}}</p>
+                {% endfor %}
+                <a href="{% url 'view_account' user.pk %}">Go to main profile page</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

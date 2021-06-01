@@ -1,8 +1,9 @@
 from django.shortcuts import render, get_object_or_404
 from .forms import PostModelForm, CommentModelForm
 from time import asctime
+from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
-from .models import Post
+from .models import Post, Comment
 from django.views.generic import ListView, DeleteView, UpdateView
 
 

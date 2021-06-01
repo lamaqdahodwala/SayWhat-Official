@@ -11,8 +11,24 @@ class SignUpView(CreateView):
     
 def view_account(req, user_id):
     try:
-        user = req.user
+        user = User.objects.get(pk=user_id)
         return render(req, 'user.html', {'user': user})
+    except Exception as e:
+        print_exc()
+        return render(req, 'user_not_found.html')
+    
+def view_posts(req, user_id):
+    try:
+        user = User.objects.get(pk=user_id)
+        return render(req, 'view_all_posts_or_comments.html', {'user': user, 'item': 'posts'})
+    except Exception as e:
+        print_exc()
+        return render(req, 'user_not_found.html')
+    
+def view_comments(req, user_id):
+    try:
+        user = User.objects.get(pk=user_id)
+        return render(req, 'view_all_posts_or_comments.html', {'user': user, 'item': 'comments'})
     except Exception as e:
         print_exc()
         return render(req, 'user_not_found.html')
