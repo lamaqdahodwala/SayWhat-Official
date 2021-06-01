@@ -26,7 +26,7 @@
 			<div class="navbar-item">
 				{% if user.is_authenticated %} 
 					<div class="buttons">
-						<a href="{% url 'view_account' user.id %}" class='button is-dark'>Account</a>
+						<a href="{% url 'view_account' user.id %}" class='button is-dark'>Your Account</a>
 					</div>
 				{% else %}
 					<div class="buttons">
