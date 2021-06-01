@@ -22,6 +22,8 @@
                     {% empty %} 
                         <small class="is-small">{{user.username}} has no posts yet :(</small>
                     {% endfor %}
+                    <br><br>
+                    <a href="{% url 'view_posts' user.id %}">View all...</a>
                 </div>
             </div>
         </div>
@@ -30,14 +32,12 @@
                 <div class="tile is-child box">
                     <h1 class="title">Comments (Last 10)</h1>
                     {% for i in user.comment_set.all|slice:":10" %} 
-                        <p>
-                            "{{i.body}}" | on <a href="{% url 'detail' i.post.pk %}">{{i.post.title}}</a>
-                        </p>
+                        <p>"{{i.body}}" | on <a href="{% url 'detail' i.post.pk %}">{{i.post.title}}</a></p>
                     {% empty %} 
-                        <p class="is-small">
-                            {{user.username}} has no comments yet :(
-                        </p>
+                        <p class="is-small">{{user.username}} has no comments yet :(</p>
                     {% endfor %} 
+                    <br><br>
+                    <a href="{% url 'view_comments' user.id %}">View all...</a>
                 </div>
             </div>
         </div>
